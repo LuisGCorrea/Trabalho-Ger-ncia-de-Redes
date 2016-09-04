@@ -38,26 +38,27 @@ if ((Arquivo = fopen("regras.txt","r")) == NULL) {
                 system("PAUSE");
                 //printf("3\n");
             }
-            else if(ch == '\n')//teste se chegou no final da linha, se não, insere na matriz como string e adiciona \0 para retirar lixo de memória
+            else if(ch != '\n')//teste se chegou no final da linha, se não, insere na matriz como string e adiciona \0 para retirar lixo de memória
+            {
+
+                fflush(stdin);
+                aux[i] = '\0';
+                printf("\nterceiro if a matriz vai receber o valor");
+                printf("\nValor de ch = %c", ch);
+                matriz[j][cont] = atoi(aux);
+                printf("\nValor da matriz = %d",matriz[j][cont]);
+                cont++;
+                i=0;
+                system("PAUSE");
+
+            }
+            else//ignora e pula para a proxima linha
             {
                 fflush(stdin);
                 printf("\nvalor de ch se encontrar '\n' = %c", ch);
                 printf("segundo if\n");
                 system("PAUSE");
                 j++;
-
-            }
-            else//ignora e pula para a proxima linha
-            {
-                fflush(stdin);
-                aux[i+1] = '\0';
-                printf("\nterceiro if a matriz vai receber o valor");
-                printf("\nValor de ch = %c", ch);
-                matriz[j][cont] = atoi(aux);
-                printf("\nValor da matriz = %d",matriz[cont][j]);
-                cont++;
-                i=0;
-                system("PAUSE");
             }
         }
 
@@ -66,7 +67,7 @@ if ((Arquivo = fopen("regras.txt","r")) == NULL) {
 //testa as regras
 for(j = 0; j<2; j++)
 {
-    if(matriz[i][j] == a && matriz[i+1][j] == b && matriz[i+2][j] == c && matriz[i+3][j] == d)
+    if(matriz[i][j] == a && matriz[i][j+1] == b && matriz[i][j+2] == c && matriz[i][j+3] == d)
     {
 
         printf("\nregra %d testada\n", j);
