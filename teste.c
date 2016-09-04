@@ -20,25 +20,25 @@ cont = 0; i = 0; j = 0;
 //abre o arquivo no modo leitura
 
 if ((Arquivo = fopen("regras.txt","r")) == NULL) {
-    printf("\n Arquivo TEXTO.TXT não pode ser aberto : TECLE ALGO");
+    printf("\n Arquivo TEXTO.TXT nÃ£o pode ser aberto : TECLE ALGO");
  getch();
  }else
     {
         printf("1\n");
-        while((ch = fgetc(Arquivo))!= EOF) //Lê até o final do arquivo
+        while((ch = fgetc(Arquivo))!= EOF) //LÃª atÃ© o final do arquivo
         {
-            if(ch != '.')//para caracteres diferentes de '.' adiciona no vetor aux e incrementa i
+            if(ch != '.' || ch != '\n')//para caracteres diferentes de '.' adiciona no vetor aux e incrementa i
             {
                 //insere na matriz
                 fflush(stdin);
                 aux[i]=ch;
-                i++;
                 printf("\nvalor de ch = %c", ch);
                 printf("\n%c primeiro if",aux[i]);
+                i++;
                 system("PAUSE");
                 //printf("3\n");
             }
-            else if(ch == '\n')//teste se chegou no final da linha, se não, insere na matriz como string e adiciona \0 para retirar lixo de memória
+            else if(ch == '\n')//teste se chegou no final da linha, se nÃ£o, insere na matriz como string e adiciona \0 para retirar lixo de memÃ³ria
             {
                 fflush(stdin);
                 printf("\nvalor de ch se encontrar '\n' = %c", ch);
@@ -53,7 +53,7 @@ if ((Arquivo = fopen("regras.txt","r")) == NULL) {
                 aux[i+1] = '\0';
                 printf("\nterceiro if a matriz vai receber o valor");
                 printf("\nValor de ch = %c", ch);
-                matriz[cont][j] = atoi(aux);
+                matriz[j][cont] = atoi(aux);
                 printf("\nValor da matriz = %d",matriz[cont][j]);
                 cont++;
                 i=0;
