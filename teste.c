@@ -6,7 +6,7 @@
 int main()
 {
 
-int matriz[4][2];
+int matriz[4][3];
 int a,b,c,d;
 int i, linha, coluna, j, contador;
 char aux[4];
@@ -20,59 +20,65 @@ coluna = 0; contador = 0; linha = 0; j = 0, i = 0;
 //abre o arquivo no modo leitura
 
 if ((Arquivo = fopen("regras.txt","r")) == NULL) {
-    printf("\n Arquivo TEXTO.TXT não pode ser aberto : TECLE ALGO");
+    printf("\n Arquivo REGRAS.TXT nÃ£o pode ser aberto : TECLE ALGO");
  getch();
  }else
     {
-        printf("1\n");
-        while((ch = fgetc(Arquivo))!= EOF) //Lê até o final do arquivo
+        while((ch = fgetc(Arquivo))!= EOF) //LÃª atÃ© o final do arquivo
         {
-            if(ch != '.' && ch != '\n')//para caracteres diferentes de '.' adiciona no vetor aux e incrementa i
+            if(ch != '.')//para caracteres diferentes de '.' adiciona no vetor aux e incrementa i
             {
-                //insere na matriz
-                fflush(stdin);
-                aux[contador]=ch;
-                printf("\nvalor de ch = %c", ch);
-                printf("\n%c primeiro if",aux[contador]);
-                contador++;
-                system("PAUSE");
-                //printf("3\n");
+                    if(ch != '\n')
+                    {
+                        //insere na variavel auxiliar
+                        fflush(stdin);
+                        aux[contador]=ch;
+                        contador++;
+                    }
+                    else //insere na matriz de regras e incrementa a linha
+                    {
+                        fflush(stdin);
+                        printf("\nvalor de ch se encontrar '\n' = %c", ch);
+                        printf("segundo if\n");
+                        linha++;
+                        contador = 0;
+                        coluna = 0;
+                        aux[0] = '\0'; aux[1] = '\0'; aux[2] = '\0'; aux[3] = '\0';
+                        printf("\nPrinta o valor da matriz:\n");
+                        printf("\n %d.%d.%d.%d", matriz[linha-1][0], matriz[linha-1][1], matriz[linha-1][2], matriz[linha-1][3]);
+                        system("PAUSE");
+                    }
             }
-            else if(ch == '.')//teste se chegou no final da linha, se não, insere na matriz como string e adiciona \0 para retirar lixo de memória
+            else//insere na matriz realizando a conversÃ£o de char para int, incrementa a coluna
             {
-
                 fflush(stdin);
                 aux[contador] = '\0';
-                printf("\nterceiro if a matriz vai receber o valor");
                 printf("\nValor de ch = %c", ch);
                 matriz[linha][coluna] = atoi(aux);
+                aux[0] = '\0'; aux[1] = '\0'; aux[2] = '\0'; aux[3] = '\0';
                 printf("\nValor da matriz = %d",matriz[linha][coluna]);
                 coluna++;
                 contador=0;
                 system("PAUSE");
 
             }
-            else//ignora e pula para a proxima linha
-            {
-                fflush(stdin);
-                printf("\nvalor de ch se encontrar '\n' = %c", ch);
-                printf("segundo if\n");
-                system("PAUSE");
-                linha++;
-            }
         }
-
     }
 
+    //fecha o arquivo
+
+fclose(Arquivo);
+
 //testa as regras
-for(linha = 0; linha<2; linha++)
+for(linha = 0; linha<3; linha++)
 {
     if(matriz[linha][0] == a && matriz[linha][1] == b && matriz[linha][2] == c && matriz[linha][3] == d)
     {
 
-        printf("\nregra %d testada\n", j);
+        printf("\nregra %d testada\n", linha);
         //libera o pacote
         printf("\nPacote Liberado\n");
+        break;
 
     }else{
 
@@ -80,15 +86,11 @@ for(linha = 0; linha<2; linha++)
 printf("\nPacote bloqueado\n");
 
 }
-//fecha o arquivo
-
-fclose(Arquivo);
-
 //printa na tela
 
-printf("\n%d.%d.%d.%d \n", a,b,c,d);
+printf("\nIP do pacote: %d.%d.%d.%d \n\n", a,b,c,d);
 
-    for(linha=0;linha<2;linha++)
+    for(linha=0;linha<3;linha++)
     {
         for(coluna=0;coluna<4;coluna++)
         {
